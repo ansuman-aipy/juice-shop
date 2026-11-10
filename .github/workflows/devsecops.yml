@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 jobs:
-  hello Ansuman:
+  hello_Ansuman:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
