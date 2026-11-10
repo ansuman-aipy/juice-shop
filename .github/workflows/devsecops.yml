@@ -10,16 +10,16 @@ permissions:
   contents: read
 
 jobs:
-    secrets-scan:
+  secrets-scan:
     name: Secrets scan (Gitleaks)
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      pull-requests: write   # lets Gitleaks comment on the offending line in a PR
+      pull-requests: write
     steps:
       - uses: actions/checkout@v6
         with:
-          fetch-depth: 0     # full history, so it can scan every commit
+          fetch-depth: 0
       - uses: gitleaks/gitleaks-action@v3
         continue-on-error: true   # REPORT-ONLY for now (removed in Step 7)
         env:
