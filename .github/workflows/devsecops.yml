@@ -10,8 +10,17 @@ permissions:
   contents: read
 
 jobs:
-  hello_Ansuman:
+    secrets-scan:
+    name: Secrets scan (Gitleaks)
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write   # lets Gitleaks comment on the offending line in a PR
     steps:
       - uses: actions/checkout@v6
-      - run: echo "Pipeline is alive"
+        with:
+          fetch-depth: 0     # full history, so it can scan every commit
+      - uses: gitleaks/gitleaks-action@v3
+        continue-on-error: true   # REPORT-ONLY for now (removed in Step 7)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
